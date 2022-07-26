@@ -1,0 +1,85 @@
+/*
+By: foenixp @ https://github.com/foenixp
+This is a pseudo monthly calendar appearance, meaning it just imitates the grid look and without any dynamic dates and months pulled in.
+It could be used by manually entering the data/tasks, or using dataview/task plugin queries.
+
+Credit: The code was altered from Mark Root-Wiley's in the post "Building a conference schedule with css grid" (https://css-tricks.com/building-a-conference-schedule-with-css-grid/) - Thank you for such awesome code.
+*/
+
+/**---------- callout [!weekly] with columns ------------**/
+.callout[data-callout="weekly"] {
+	border-left: none !important;
+}
+
+.callout[data-callout="weekly"] .callout-title {
+	border-radius: initial !important;
+	display: flex !important;
+	background-color: rgba(var(--callout-color), .03) !important;
+}
+
+.callout[data-callout="weekly"] .callout-icon {
+	display: none !important;
+}
+
+.callout[data-callout="weekly"] .callout-title-inner {
+	font-size: .9em !important;	
+	flex: auto !important;
+}
+
+/*** multiple columns that each take up the same amount of available free space ***/
+.callout[data-callout="weekly"] > .callout-content {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(1em, 1fr) );
+    gap: none !important;
+	padding: 0 !important;
+}
+
+
+
+/** [!weekly] > [!daily] nested callout **/
+.callout[data-callout="daily"] {
+    border-left: none !important;
+}
+
+.callout[data-callout="daily"] .callout-title {
+	background-color: transparent !important;
+}
+
+.callout[data-callout="daily"] .callout-title-inner { 
+	font-size: 1em !important;
+	text-align: center !important;
+}
+
+
+.callout[data-callout="daily"] > .callout-content {
+	border-right: 0 !important;
+    padding: 0 !important;
+	padding-top: .2em !important;
+	padding-left: 2em !important;
+	height: 50rem !important; /* height of the calendar */
+    display: grid;
+    grid-gap: 0 !important;
+	overflow: hidden !important;
+}
+
+
+/** [!daily] > [!session-x] nested callout **/
+.callout[data-callout="daily"] > .callout-content > .callout[data-callout^="session"] {
+    margin: 0;
+    border: .5px solid #66666650 !important;
+	border-radius: 0 !important;
+	margin-left: -2em !important;
+	overflow: scroll !important; /* scroll in each day box with long content */
+}
+
+.callout[data-callout="daily"] > .callout-content > .callout[data-callout^="session"] > .callout-content {
+    border: none;
+	color: #666666 !important;
+}
+
+
+/** [!daily] > [!session-0] nested callout **/
+.callout[data-callout="daily"] .callout[data-callout="session-0"] {
+    background-color: transparent;
+	height: 10rem !important; /* height of each day */
+}
